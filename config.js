@@ -5,8 +5,9 @@ const COMPANY_CONFIG = {
   phone: "9156043501", // Add the business phone before issuing invoices.
   email: "peopleminthr@gmail.com", // Add the business email before issuing invoices.
   pan: "", // Add the verified PAN before issuing invoices.
+  gstin: "", // Optional company GSTIN.
   msme: "", // Add the verified MSME/Udyam number if applicable.
   signatory: "Mr. Tushar Kokane", // Replace with the authorised signatory's name.
   bankDetails: "", // Add verified payment details before issuing invoices.
-  logoPath: "" // Optional: add "assets/logo.png" after placing the official logo in that folder
+  logoPath: "assets/people-mint-logo.png.jpeg"
 };

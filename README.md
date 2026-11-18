@@ -6,12 +6,12 @@ A static, browser-based invoice generator prototype. No server or installation i
 1. Extract the ZIP.
 2. Open `index.html` in Chrome or Edge. (VS Code Live Server also works.)
 3. Replace the clearly marked blank company-detail placeholders in `config.js` with verified details before issuing invoices.
-4. Add the official logo at `assets/logo.png` and set `logoPath: "assets/logo.png"` in `config.js`.
+4. The official logo is stored at `assets/people-mint-logo.png.jpeg` and configured in `config.js`.
 5. Fill in the invoice form and click **Download PDF**. In the print dialog, choose **Save as PDF**.
 
 ## Important setup
-- `config.js` intentionally contains no private company identifiers or payment details. Add only verified company information before issuing invoices.
-- GST fields and GST calculations are intentionally omitted because the business has said it is not currently GST-registered. Confirm invoice wording and tax treatment with the company's accountant.
+- Set `gstin` in `config.js` only if a verified company GSTIN should appear on the invoice. The optional Client GSTIN is entered per invoice and is retained with saved invoices.
+- GSTINs are informational only. The invoice does not calculate or add GST or other tax charges. Confirm invoice wording and tax treatment with the company's accountant.
 - This prototype saves invoice records in the current browser's local storage only. Records do not sync between computers or browsers and can be lost if browser data is cleared.
 - The invoice number is entered/generated in the browser. This prototype does not provide centralized, collision-proof invoice numbering for multiple users.
 

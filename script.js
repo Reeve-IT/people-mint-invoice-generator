@@ -1,7 +1,7 @@
 const $ = (id) => document.getElementById(id);
 const money = (n) => new Intl.NumberFormat("en-IN", { style:"currency", currency:"INR", minimumFractionDigits:2 }).format(Number(n || 0));
 const dateValue = (v) => v ? new Date(v + "T00:00:00").toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"}) : "—";
-const fields = ["invoiceNumber","invoiceDate","dueDate","placeOfSupply","clientName","clientAddress","clientContact","clientContactDetails","serviceDescription","candidateName","candidatePosition","annualSalary","joiningDate","notes","serviceAmount","otherCharges","amountWords"];
+const fields = ["invoiceNumber","invoiceDate","dueDate","placeOfSupply","clientName","clientAddress","clientContact","clientContactDetails","clientGstin","serviceDescription","candidateName","candidatePosition","annualSalary","joiningDate","notes","serviceAmount","otherCharges","amountWords"];
 
 function init(){
   const today = new Date();
@@ -13,12 +13,10 @@ function init(){
   $("previewCompanyName").textContent = COMPANY_CONFIG.name || "People-Mint";
   $("previewFooterCompany").textContent = COMPANY_CONFIG.name || "People-Mint";
   $("previewSignatory").textContent = COMPANY_CONFIG.signatory || "Authorised Signatory";
-  const contact = [COMPANY_CONFIG.address, COMPANY_CONFIG.phone, COMPANY_CONFIG.email, COMPANY_CONFIG.pan ? `PAN: ${COMPANY_CONFIG.pan}` : "", COMPANY_CONFIG.msme ? `MSME: ${COMPANY_CONFIG.msme}` : ""].filter(Boolean).join("\n");
+  const contact = [COMPANY_CONFIG.address, COMPANY_CONFIG.phone, COMPANY_CONFIG.email, COMPANY_CONFIG.pan ? `PAN: ${COMPANY_CONFIG.pan}` : "", COMPANY_CONFIG.gstin ? `Company GSTIN: ${COMPANY_CONFIG.gstin}` : "", COMPANY_CONFIG.msme ? `MSME: ${COMPANY_CONFIG.msme}` : ""].filter(Boolean).join("\n");
   $("companyContactPreview").textContent = contact;
   $("previewBankDetails").textContent = COMPANY_CONFIG.bankDetails || "Please contact the company for payment details.";
-  if(COMPANY_CONFIG.logoPath){
-    $("logoArea").innerHTML = `<img src="${COMPANY_CONFIG.logoPath}" alt="Company logo">`;
-  }
+  if(COMPANY_CONFIG.logoPath) $("logoArea").innerHTML = `<img src="${COMPANY_CONFIG.logoPath}" alt="People-Mint HR Consulting Services logo">`;
   fields.forEach(id => $(id).addEventListener("input", updatePreview));
   updatePreview(); renderHistory();
 }
@@ -32,6 +30,8 @@ function updatePreview(){
   $("previewClientName").textContent=d.clientName||"Client / company name";
   $("previewClientAddress").textContent=d.clientAddress||"Billing address";
   $("previewClientContact").textContent=[d.clientContact,d.clientContactDetails].filter(Boolean).join(" • ");
+  $("previewClientGstin").textContent=d.clientGstin?`Client GSTIN: ${d.clientGstin}`:"";
+  $("previewClientGstin").style.display=d.clientGstin?"block":"none";
   $("previewService").textContent=d.serviceDescription||"Service description";
   $("previewServiceAmount").textContent=Number(d.serviceAmount||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
   $("previewOtherCharges").textContent=Number(d.otherCharges||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});

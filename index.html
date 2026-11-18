@@ -48,6 +48,7 @@
             <label class="wide">Billing address<textarea id="clientAddress" rows="2" placeholder="Full billing address"></textarea></label>
             <label>Contact person<input id="clientContact" placeholder="Contact person's name"></label>
             <label>Email / phone<input id="clientContactDetails" placeholder="Email or phone number"></label>
+            <label>Client GSTIN<input id="clientGstin" placeholder="Optional"></label>
           </div>
 
           <div class="divider"></div>
@@ -70,7 +71,7 @@
           </div>
 
           <div class="notice">
-            <strong>GST is not included.</strong> This version is configured for a business that is not currently GST-registered. It does not add GST or display a GSTIN. Confirm the correct invoice wording and tax treatment with the company's accountant before issuing invoices.
+            <strong>GST is not included.</strong> Optional GSTIN details may be shown when provided. No GST or other tax calculations or charges are added. Confirm the correct invoice wording and tax treatment with the company's accountant before issuing invoices.
           </div>
 
           <div class="form-actions">
@@ -108,6 +109,7 @@
             <strong class="client-name" id="previewClientName">Client / company name</strong>
             <p id="previewClientAddress">Billing address</p>
             <p id="previewClientContact"></p>
+            <p id="previewClientGstin" style="display:none"></p>
           </div>
           <table class="items-table">
             <thead><tr><th>DESCRIPTION</th><th class="amount-col">AMOUNT (₹)</th></tr></thead>
