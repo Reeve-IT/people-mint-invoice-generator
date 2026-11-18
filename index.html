@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="People-Mint invoice generator">
+  <title>People-Mint | Invoice Generator</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-mark">PM</div>
+      <div><strong>People-Mint</strong><span>HR Consulting Services</span></div>
+    </div>
+    <div class="topbar-right"><span class="status-dot"></span> Invoice workspace</div>
+  </header>
+
+  <main class="shell">
+    <section class="intro">
+      <div>
+        <p class="eyebrow">BILLING WORKSPACE</p>
+        <h1>Invoice generator</h1>
+        <p class="subheading">Create a clean, professional invoice in a few steps.</p>
+      </div>
+      <button class="button button-quiet" id="newInvoiceBtn" type="button">＋ New invoice</button>
+    </section>
+
+    <div class="layout">
+      <section class="panel form-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">INVOICE DETAILS</p><h2>Enter information</h2></div>
+          <span class="step-badge">01 / 02</span>
+        </div>
+
+        <form id="invoiceForm">
+          <div class="form-grid">
+            <label>Invoice number<input id="invoiceNumber" required></label>
+            <label>Invoice date<input id="invoiceDate" type="date" required></label>
+            <label>Due date<input id="dueDate" type="date"></label>
+            <label>Place of supply / State<input id="placeOfSupply" placeholder="e.g. Maharashtra"></label>
+          </div>
+
+          <div class="divider"></div>
+          <div class="section-title"><span>01</span><h3>Bill to</h3></div>
+          <div class="form-grid">
+            <label class="wide">Client / company name<input id="clientName" required placeholder="Client's legal or business name"></label>
+            <label class="wide">Billing address<textarea id="clientAddress" rows="2" placeholder="Full billing address"></textarea></label>
+            <label>Contact person<input id="clientContact" placeholder="Contact person's name"></label>
+            <label>Email / phone<input id="clientContactDetails" placeholder="Email or phone number"></label>
+          </div>
+
+          <div class="divider"></div>
+          <div class="section-title"><span>02</span><h3>Service details</h3></div>
+          <div class="form-grid">
+            <label class="wide">Description of service<textarea id="serviceDescription" rows="2" required placeholder="e.g. Recruitment and placement service charges"></textarea></label>
+            <label>Candidate name<input id="candidateName" placeholder="Optional"></label>
+            <label>Position / designation<input id="candidatePosition" placeholder="Optional"></label>
+            <label>Annual remuneration (₹)<input id="annualSalary" type="number" min="0" step="0.01" placeholder="Optional"></label>
+            <label>Date of joining<input id="joiningDate" type="date"></label>
+            <label class="wide">Additional notes<textarea id="notes" rows="2" placeholder="Optional notes or payment instructions"></textarea></label>
+          </div>
+
+          <div class="divider"></div>
+          <div class="section-title"><span>03</span><h3>Charges</h3></div>
+          <div class="form-grid">
+            <label>Service amount (₹)<input id="serviceAmount" type="number" min="0" step="0.01" required placeholder="0.00"></label>
+            <label>Other charges (₹)<input id="otherCharges" type="number" min="0" step="0.01" value="0"></label>
+            <label class="wide">Amount in words<input id="amountWords" placeholder="Optional — can be entered manually"></label>
+          </div>
+
+          <div class="notice">
+            <strong>GST is not included.</strong> This version is configured for a business that is not currently GST-registered. It does not add GST or display a GSTIN. Confirm the correct invoice wording and tax treatment with the company's accountant before issuing invoices.
+          </div>
+
+          <div class="form-actions">
+            <button class="button button-primary" type="button" id="previewBtn">Update preview →</button>
+            <button class="button button-outline" type="button" id="saveBtn">Save invoice</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="preview-column">
+        <div class="preview-toolbar">
+          <div><p class="eyebrow">LIVE PREVIEW</p><h2>Invoice preview</h2></div>
+          <button class="button button-primary" id="downloadBtn" type="button">Download PDF ↓</button>
+        </div>
+
+        <article class="invoice" id="invoicePreview">
+          <div class="invoice-top">
+            <div class="invoice-brand">
+              <div class="invoice-logo" id="logoArea">PM</div>
+              <div><div class="invoice-company" id="previewCompanyName">People-Mint</div><div class="invoice-tagline">HR Consulting Services</div></div>
+            </div>
+            <div class="company-contact" id="companyContactPreview"></div>
+          </div>
+          <div class="invoice-title-row">
+            <div><div class="invoice-kicker">DOCUMENT</div><h2>INVOICE</h2></div>
+            <div class="invoice-number-box"><span>INVOICE NO.</span><strong id="previewInvoiceNumber">PM-001</strong></div>
+          </div>
+          <div class="invoice-meta">
+            <div><span>INVOICE DATE</span><strong id="previewInvoiceDate">—</strong></div>
+            <div><span>DUE DATE</span><strong id="previewDueDate">—</strong></div>
+            <div><span>PLACE OF SUPPLY</span><strong id="previewPlace">—</strong></div>
+          </div>
+          <div class="bill-section">
+            <p class="small-label">BILL TO</p>
+            <strong class="client-name" id="previewClientName">Client / company name</strong>
+            <p id="previewClientAddress">Billing address</p>
+            <p id="previewClientContact"></p>
+          </div>
+          <table class="items-table">
+            <thead><tr><th>DESCRIPTION</th><th class="amount-col">AMOUNT (₹)</th></tr></thead>
+            <tbody><tr><td><strong id="previewService">Service description</strong><div class="candidate-line" id="previewCandidate"></div></td><td class="amount-col" id="previewServiceAmount">0.00</td></tr>
+            <tr id="otherRow" class="other-row"><td>Other charges</td><td class="amount-col" id="previewOtherCharges">0.00</td></tr></tbody>
+          </table>
+          <div class="total-area">
+            <div class="total-line"><span>Subtotal</span><strong id="previewSubtotal">₹0.00</strong></div>
+            <div class="total-line grand-total"><span>Total payable</span><strong id="previewTotal">₹0.00</strong></div>
+          </div>
+          <div class="amount-words"><span>AMOUNT IN WORDS</span><p id="previewAmountWords">—</p></div>
+          <div class="notes-block" id="previewNotesBlock"><span>NOTES</span><p id="previewNotes"></p></div>
+          <div class="invoice-footer">
+            <div><strong>Payment details</strong><p id="previewBankDetails">Payment / bank details can be added in the company settings.</p></div>
+            <div class="signature"><div class="signature-space"></div><strong id="previewSignatory">Authorised Signatory</strong><span>For <span id="previewFooterCompany">People-Mint</span></span></div>
+          </div>
+          <div class="footer-strip">Thank you for your business.</div>
+        </article>
+        <p class="preview-help">Tip: use “Download PDF” and choose “Save as PDF” in the print dialog. The downloaded PDF will not include the form or dashboard.</p>
+      </section>
+    </div>
+
+    <section class="panel history-panel">
+      <div class="panel-heading"><div><p class="eyebrow">LOCAL RECORDS</p><h2>Saved invoices</h2></div><span class="muted">Stored in this browser only</span></div>
+      <div id="historyList" class="history-list"><p class="empty-state">No saved invoices yet.</p></div>
+    </section>
+    <footer class="app-footer">People-Mint Invoice Generator <span>•</span> Prototype</footer>
+  </main>
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
