@@ -1,6 +1,6 @@
 
 const COMPANY_CONFIG = {
-  name: "People-Mint",
+  name: "People-Mint HR Consulting Services",
   address: "", // Add the business address before issuing invoices.
   phone: "", // Add the business phone before issuing invoices.
   email: "", // Add the business email before issuing invoices.
