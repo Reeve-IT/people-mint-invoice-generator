@@ -55,6 +55,7 @@
           <div class="section-title"><span>02</span><h3>Service details</h3></div>
           <div class="form-grid">
             <label class="wide">Description of service<textarea id="serviceDescription" rows="2" required placeholder="e.g. Recruitment and placement service charges"></textarea></label>
+            <label>GST Number<input id="serviceGstNumber" placeholder="Optional"></label>
             <label>Candidate name<input id="candidateName" placeholder="Optional"></label>
             <label>Position / designation<input id="candidatePosition" placeholder="Optional"></label>
             <label>Annual remuneration (₹)<input id="annualSalary" type="number" min="0" step="0.01" placeholder="Optional"></label>
@@ -113,7 +114,7 @@
           </div>
           <table class="items-table">
             <thead><tr><th>DESCRIPTION</th><th class="amount-col">AMOUNT (₹)</th></tr></thead>
-            <tbody><tr><td><strong id="previewService">Service description</strong><div class="candidate-line" id="previewCandidate"></div></td><td class="amount-col" id="previewServiceAmount">0.00</td></tr>
+            <tbody><tr><td><strong id="previewService">Service description</strong><div class="candidate-line" id="previewServiceGst" style="display:none"></div><div class="candidate-line" id="previewCandidate"></div></td><td class="amount-col" id="previewServiceAmount">0.00</td></tr>
             <tr id="otherRow" class="other-row"><td>Other charges</td><td class="amount-col" id="previewOtherCharges">0.00</td></tr></tbody>
           </table>
           <div class="total-area">

@@ -1,7 +1,7 @@
 const $ = (id) => document.getElementById(id);
 const money = (n) => new Intl.NumberFormat("en-IN", { style:"currency", currency:"INR", minimumFractionDigits:2 }).format(Number(n || 0));
 const dateValue = (v) => v ? new Date(v + "T00:00:00").toLocaleDateString("en-IN",{day:"2-digit",month:"short",year:"numeric"}) : "—";
-const fields = ["invoiceNumber","invoiceDate","dueDate","placeOfSupply","clientName","clientAddress","clientContact","clientContactDetails","clientGstin","serviceDescription","candidateName","candidatePosition","annualSalary","joiningDate","notes","serviceAmount","otherCharges","amountWords"];
+const fields = ["invoiceNumber","invoiceDate","dueDate","placeOfSupply","clientName","clientAddress","clientContact","clientContactDetails","clientGstin","serviceDescription","serviceGstNumber","candidateName","candidatePosition","annualSalary","joiningDate","notes","serviceAmount","otherCharges","amountWords"];
 
 function init(){
   const today = new Date();
@@ -33,6 +33,8 @@ function updatePreview(){
   $("previewClientGstin").textContent=d.clientGstin?`Client GSTIN: ${d.clientGstin}`:"";
   $("previewClientGstin").style.display=d.clientGstin?"block":"none";
   $("previewService").textContent=d.serviceDescription||"Service description";
+  $("previewServiceGst").textContent=d.serviceGstNumber?`GST Number: ${d.serviceGstNumber}`:"";
+  $("previewServiceGst").style.display=d.serviceGstNumber?"block":"none";
   $("previewServiceAmount").textContent=Number(d.serviceAmount||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
   $("previewOtherCharges").textContent=Number(d.otherCharges||0).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2});
   const candidate=[d.candidateName?`Candidate: ${d.candidateName}`:"",d.candidatePosition?`Position: ${d.candidatePosition}`:"",d.annualSalary?`Annual remuneration: ${money(d.annualSalary)}`:"",d.joiningDate?`Joining date: ${dateValue(d.joiningDate)}`:""].filter(Boolean).join("  |  ");
